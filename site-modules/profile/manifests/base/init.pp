@@ -1,5 +1,5 @@
 class profile::base {
 
-  include ::base::access
+  include ::profile::base::access
 
 }

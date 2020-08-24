@@ -9,3 +9,11 @@ lookup_options:
 	profile::base::access::pam_config:
 		merge: hash
 
+profile::base::access::pam_config:
+  "Enforce access.conf in sshd":
+    ensure: "present"
+    service: "sshd"
+    type: "account"
+    control: "required"
+    module: "pam_access.so"
+    position: "before module pam_nologin.so"

@@ -1,12 +1,11 @@
 #
-#class profile::base::access (
+class profile::base::access (
 #	Array[ String[1] ] $required_pkgs,
 #	Hash $access_allow,
 #	Hash $access_deny,
 #	Hash $access_deny_before,
-#	Hash $pam_config,
-#) {
-class profile::base::access {
+	Hash $pam_config,
+) {
 
 	# Make sure pam is installed.
   $required_pkgs = [
