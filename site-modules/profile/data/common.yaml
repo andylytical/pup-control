@@ -1,0 +1,11 @@
+---
+lookup_options:
+	profile::base::access::access_allow:
+		merge: hash
+	profile::base::access::access_deny:
+		merge: hash
+	profile::base::access::access_deny_before:
+		merge: hash
+	profile::base::access::pam_config:
+		merge: hash
+
