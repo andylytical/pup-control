@@ -1,33 +1,39 @@
+# @summary A short summary of the purpose of this class
+#
+# A description of what this class does
+#
+# @example
+#   include profile::base::access
 #
 class profile::base::access (
 #	Array[ String[1] ] $required_pkgs,
 #	Hash $access_allow,
 #	Hash $access_deny,
 #	Hash $access_deny_before,
-	Hash $pam_config,
+  Hash $pam_config,
 ) {
 
-	# Make sure pam is installed.
+  # Make sure pam is installed.
   $required_pkgs = [
     'pam',
     'pam_krb5'
   ]
-	ensure_packages( $required_pkgs )
+  ensure_packages( $required_pkgs )
 
-	# Configure access.conf
-	pam_access::entry { 'Default Allow - all root from local':
-		user       => 'root',
-		origin     => 'LOCAL cron crond 127.0.0.1 :0 tty',
-		permission => '+',
-		position   => 'before',
-	}
+  # Configure access.conf
+  pam_access::entry { 'Default Allow - all root from local':
+    user       => 'root',
+    origin     => 'LOCAL cron crond 127.0.0.1 :0 tty',
+    permission => '+',
+    position   => 'before',
+  }
 
-	pam_access::entry { 'Default Deny':
-		user       => 'ALL',
-		origin     => 'ALL',
-		permission => '-',
-		position   => 'after',
-	}
+  pam_access::entry { 'Default Deny':
+    user       => 'ALL',
+    origin     => 'ALL',
+    permission => '-',
+    position   => 'after',
+  }
 
 #	each($access_allow) |String[1] $key, Hash $value| {
 #		pam_access::entry { $key:
@@ -53,11 +59,11 @@ class profile::base::access (
 #		}
 #	}
 
-	# Configure pam
-	each($pam_config) |String[1] $key, Hash $value| {
-		pam { $key:
-			* => $value,
-		}
+  # Configure pam
+  each($pam_config) |String[1] $key, Hash $value| {
+    pam { $key:
+      * => $value,
+    }
   }
 
 }
